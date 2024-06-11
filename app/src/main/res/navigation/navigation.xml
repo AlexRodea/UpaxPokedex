@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    app:startDestination="@id/up_fragment_main">
+
+    <fragment
+        android:id="@+id/up_fragment_main"
+        android:name="com.upaxpokedex.ui.main.UPMainFragment">
+        <action
+            android:id="@+id/action_main_to_profile"
+            app:destination="@id/up_fragment_profile"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/up_fragment_profile"
+        android:name="com.upaxpokedex.ui.profile.UPProfileFragment">
+
+    </fragment>
+
+</navigation>
