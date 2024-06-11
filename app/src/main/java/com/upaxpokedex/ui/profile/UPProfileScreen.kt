@@ -31,7 +31,7 @@ import com.upaxpokedex.R
 import com.upaxpokedex.domain.models.UPProfile
 import com.upaxpokedex.ui.theme.UPGreen
 import com.upaxpokedex.ui.theme.UPLightGreen
-import com.upaxpokedex.utils.getNameInitials
+import com.upaxpokedex.utils.UPUtils
 import com.upaxpokedex.utils.isStartWithAlphabet
 import com.upaxpokedex.utils.isUrlInvalid
 import kotlin.math.roundToInt
@@ -110,7 +110,7 @@ fun ProfileInitials(
     ) {
         if (profile.name.isNotBlank() && profile.name.isStartWithAlphabet()) {
             Text(
-                text = getNameInitials(profile.name, profile.lastname),
+                text = UPUtils.getNameInitials(profile.name, profile.lastname),
                 textAlign = TextAlign.Center,
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
