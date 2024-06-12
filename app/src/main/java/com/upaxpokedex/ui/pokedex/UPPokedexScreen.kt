@@ -72,9 +72,9 @@ fun PokedexScreen(viewModel: UPPokedexViewModel) {
                     ProfileShape(
                         name = pokemon?.name ?: "",
                         lastname = "",
-                        photo = pokemon?.sprite ?: "",
+                        photo = pokemon?.sprites?.frontDefault ?: "",
                         screenWidth = itemWidth,
-                        hasPhoto = !pokemon?.sprite.isNullOrBlank()
+                        hasPhoto = !pokemon?.sprites?.frontDefault.isNullOrBlank()
                     )
                     Spacer(modifier = Modifier.padding(16.dp))
                     Text(
