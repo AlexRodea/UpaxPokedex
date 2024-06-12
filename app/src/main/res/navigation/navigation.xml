@@ -11,11 +11,19 @@
             android:id="@+id/action_main_to_profile"
             app:destination="@id/up_fragment_profile"
             />
+        <action android:id="@+id/action_main_to_pokedex"
+            app:destination="@id/up_fragment_pokedex"/>
     </fragment>
 
     <fragment
         android:id="@+id/up_fragment_profile"
         android:name="com.upaxpokedex.ui.profile.UPProfileFragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/up_fragment_pokedex"
+        android:name="com.upaxpokedex.ui.pokedex.UPPokedexFragment">
 
     </fragment>
 

@@ -3,6 +3,7 @@ package com.upaxpokedex.di
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.upaxpokedex.ui.pokedex.UPPokedexViewModel
 import com.upaxpokedex.ui.profile.UPProfileViewModel
 import java.lang.Exception
 
@@ -15,10 +16,12 @@ class UPViewModelFactory(
         if (!modelClass.isAssignableFrom(moduleViewModel.clazz)) throw Exception()
         return when(moduleViewModel){
             ModuleViewModel.PROFILE -> UPProfileViewModel()
+            ModuleViewModel.POKEDEX -> UPViewModelProvider.providesPokedexViewModel()
         } as T
     }
 }
 
 enum class ModuleViewModel(val clazz: Class<*>){
-    PROFILE(UPProfileViewModel::class.java)
+    PROFILE(UPProfileViewModel::class.java),
+    POKEDEX(UPPokedexViewModel::class.java)
 }

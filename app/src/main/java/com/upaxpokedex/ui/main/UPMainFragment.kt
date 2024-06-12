@@ -67,7 +67,9 @@ class UPMainFragment : Fragment() {
                 Text(text = "Nav Profile")
             }
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    findNavController().navigate(R.id.action_main_to_pokedex)
+                },
             ) {
                 Text(text = "Nav Pokedex")
             }

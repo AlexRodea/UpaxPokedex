@@ -51,7 +51,8 @@ fun ProfileScreen(
         val itemWidth = (screenWidth * 0.3).roundToInt().dp
         LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(listOfProfiles) {
-                ProfileShape(profile = it, itemWidth)
+                ProfileShape(name = it.name, lastname = it.lastname, photo = it.photo, screenWidth = itemWidth)
+                Text(text = "${it.name} ${it.lastname}")
             }
         }
     }
@@ -60,17 +61,18 @@ fun ProfileScreen(
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ProfileShape(
-    profile: UPProfile,
-    screenWidth: Dp
+    name: String,
+    lastname: String,
+    photo: String,
+    screenWidth: Dp,
+    hasPhoto: Boolean = false
 ) {
-    Box(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        ProfileInitials(screenWidth = screenWidth, profile = profile)
+    Box{
+        ProfileInitials(screenWidth = screenWidth, name = name, lastname = lastname, hasPhoto = hasPhoto)
 
-        if (!profile.photo.isUrlInvalid()) {
+        if (!photo.isUrlInvalid()) {
             GlideImage(
-                model = profile.photo,
+                model = photo,
                 contentDescription = null,
                 modifier = Modifier
                     .width(screenWidth)
@@ -79,8 +81,8 @@ fun ProfileShape(
                 it.centerCrop()
                     .circleCrop()
                     .error(
-                        if (!profile.name.isStartWithAlphabet()) {
-                            Log.e("Alex", "alphabet? ${profile.name.isStartWithAlphabet()}")
+                        if (!name.isStartWithAlphabet()) {
+                            Log.e("Alex", "alphabet? ${name.isStartWithAlphabet()}")
                             R.drawable.ic_launcher_foreground
                         } else {
                             null
@@ -90,16 +92,16 @@ fun ProfileShape(
             }
         }
     }
-
-    Text(text = profile.name + " " + profile.lastname)
 }
 
 @Composable
 fun ProfileInitials(
     screenWidth: Dp,
-    profile: UPProfile
+    name: String,
+    lastname: String,
+    hasPhoto: Boolean = true
 ) {
-    Log.e("Alex valid", "isUrlInvalid -> ${profile.name}")
+    Log.e("Alex valid", "isUrlInvalid -> ${name}")
     Box(
         modifier = Modifier
             .width(screenWidth)
@@ -108,9 +110,9 @@ fun ProfileInitials(
             .background(UPLightGreen, shape = CircleShape),
         contentAlignment = Alignment.Center
     ) {
-        if (profile.name.isNotBlank() && profile.name.isStartWithAlphabet()) {
+        if (name.isNotBlank() && name.isStartWithAlphabet() && !hasPhoto) {
             Text(
-                text = UPUtils.getNameInitials(profile.name, profile.lastname),
+                text = UPUtils.getNameInitials(name, lastname),
                 textAlign = TextAlign.Center,
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
