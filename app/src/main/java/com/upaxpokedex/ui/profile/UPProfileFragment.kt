@@ -14,7 +14,7 @@ import com.upaxpokedex.ui.theme.UpaxPokedexTheme
 
 class UPProfileFragment : Fragment() {
     private lateinit var binding: UpFragmentProfileBinding
-    private val viewModel by viewModels<UPProfileViewModel> {
+    private val viewModel: UPProfileViewModel by viewModels {
         UPViewModelFactory(requireContext(), ModuleViewModel.PROFILE)
     }
 

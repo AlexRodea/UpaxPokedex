@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 class UPPokedexViewModel(private val getPokemonListUseCase: UPGetPokemonListUseCase) : ViewModel() {
     private val _dataState = MutableStateFlow(UPPokedexUIState())
     val dataState: StateFlow<UPPokedexUIState> get() = _dataState.asStateFlow()
-    fun getPokemonList(){
+    fun getPokemonList() {
         _dataState.value = dataState.value.copy(getPokemonListUseCase().cachedIn(viewModelScope))
     }
 }

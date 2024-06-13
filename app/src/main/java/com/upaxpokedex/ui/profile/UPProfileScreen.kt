@@ -101,7 +101,6 @@ fun ProfileInitials(
     lastname: String,
     hasPhoto: Boolean = true
 ) {
-    Log.e("Alex valid", "isUrlInvalid -> ${name}")
     Box(
         modifier = Modifier
             .width(screenWidth)
