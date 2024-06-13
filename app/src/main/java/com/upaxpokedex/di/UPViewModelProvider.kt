@@ -1,10 +1,11 @@
 package com.upaxpokedex.di
 
+import android.content.Context
 import com.upaxpokedex.ui.pokedex.UPPokedexViewModel
 
 object UPViewModelProvider {
-    fun providesPokedexViewModel(): UPPokedexViewModel =
+    fun providesPokedexViewModel(context: Context): UPPokedexViewModel =
         UPPokedexViewModel(
-            UPUseCaseProvider.providesGetPokemonListUseCase()
+            UPUseCaseProvider.providesGetPokemonListUseCase(context)
         )
 }

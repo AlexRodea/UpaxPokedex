@@ -16,7 +16,7 @@ class UPViewModelFactory(
         if (!modelClass.isAssignableFrom(moduleViewModel.clazz)) throw Exception()
         return when(moduleViewModel){
             ModuleViewModel.PROFILE -> UPProfileViewModel()
-            ModuleViewModel.POKEDEX -> UPViewModelProvider.providesPokedexViewModel()
+            ModuleViewModel.POKEDEX -> UPViewModelProvider.providesPokedexViewModel(context)
         } as T
     }
 }

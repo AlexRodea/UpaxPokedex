@@ -8,7 +8,7 @@ data class UPPokemonDetailResponse(
     var height: Int,
     var weight: Int,
     var sprites: Sprites,
-    var types: List<Types>
+    var types: List<Types?>
 )
 
 data class  Sprites(

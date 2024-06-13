@@ -1,8 +1,9 @@
 package com.upaxpokedex.di
 
+import android.content.Context
 import com.upaxpokedex.domain.usecases.UPGetPokemonListUseCase
 
 object UPUseCaseProvider {
-    fun providesGetPokemonListUseCase(): UPGetPokemonListUseCase =
-        UPGetPokemonListUseCase(UPRepositoryProvider.providesPokemonRepository())
+    fun providesGetPokemonListUseCase(context: Context): UPGetPokemonListUseCase =
+        UPGetPokemonListUseCase(UPRepositoryProvider.providesPokemonRepository(context))
 }

@@ -1,11 +1,14 @@
 package com.upaxpokedex.data.datasources
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.upaxpokedex.data.database.UPModuleDatabase
+import com.upaxpokedex.data.mappers.toEntity
 import com.upaxpokedex.data.remote.UPApiService
 import com.upaxpokedex.data.remote.UPPokemonDetailResponse
 
-class UPPokemonPagingSource(private val apiService: UPApiService) : PagingSource<Int, UPPokemonDetailResponse>() {
+class UPPokemonPagingSource(private val apiService: UPApiService, private val moduleDatabase: UPModuleDatabase) : PagingSource<Int, UPPokemonDetailResponse>() {
     override fun getRefreshKey(state: PagingState<Int, UPPokemonDetailResponse>): Int? {
         return state.anchorPosition
     }
@@ -18,8 +21,11 @@ class UPPokemonPagingSource(private val apiService: UPApiService) : PagingSource
             val pokemonList = response.results
             val pokemonListNew = mutableListOf<UPPokemonDetailResponse>()
             pokemonList.forEach {
-                pokemonListNew.add(apiService.getPokemonDetail(it.name))
+                val pokemonDetail = apiService.getPokemonDetail(it.name)
+                moduleDatabase.pokemonDao().insertPokemon(pokemonDetail.toEntity())
+                pokemonListNew.add(pokemonDetail)
             }
+            Log.e("Alex database", "data -> ${moduleDatabase.pokemonDao().getAllPokemons().size}")
             LoadResult.Page(
                 data = pokemonListNew,
                 prevKey = if (offset == 0) null else offset - loadSize,

@@ -65,10 +65,12 @@ fun PokedexScreen(viewModel: UPPokedexViewModel) {
             }
 
             loadState.refresh is LoadState.Error -> {
+                Log.e("Alex state", "Error")
                 isError = true
             }
 
             loadState.append is LoadState.Error -> {
+                Log.e("Alex state", "Error")
                 isError = true
             }
         }
