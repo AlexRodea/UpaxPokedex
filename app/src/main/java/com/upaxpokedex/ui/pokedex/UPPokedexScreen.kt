@@ -2,6 +2,7 @@ package com.upaxpokedex.ui.pokedex
 
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,6 +35,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.paging.LoadState
 import com.upaxpokedex.ui.profile.ProfileShape
 import kotlin.math.roundToInt
@@ -39,7 +44,6 @@ import androidx.paging.compose.items
 import com.upaxpokedex.R
 import com.upaxpokedex.ui.custom.LoadingIndicator
 import com.upaxpokedex.ui.custom.shimmerEffect
-
 
 @Composable
 fun PokedexScreen(viewModel: UPPokedexViewModel) {
@@ -92,20 +96,53 @@ fun PokedexScreen(viewModel: UPPokedexViewModel) {
                 items(pokemonList) { pokemon ->
                     Log.e("Alex flow", "items")
                     Spacer(modifier = Modifier.padding(vertical = 16.dp))
-
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
+                    ConstraintLayout(
+                        modifier = Modifier.fillMaxSize()
                     ) {
+                        val (
+                            pokemonPhoto,
+                            pokemonName,
+                            icFavorite
+                        ) = createRefs()
                         ProfileShape(
+                            modifier = Modifier.constrainAs(pokemonPhoto) {
+                                top.linkTo(parent.top)
+                                start.linkTo(parent.start)
+                            },
                             name = pokemon?.name ?: "",
                             lastname = "",
-                            photo = pokemon?.sprites?.frontDefault ?: "",
+                            photo = pokemon?.photo ?: "",
                             screenWidth = itemWidth,
-                            hasPhoto = !pokemon?.sprites?.frontDefault.isNullOrBlank()
+                            hasPhoto = !pokemon?.photo.isNullOrBlank()
                         )
                         Spacer(modifier = Modifier.padding(16.dp))
+                        Image(
+                            modifier = Modifier
+                                .height(50.dp)
+                                .width(50.dp)
+                                .clickable {
+                                    Log.e("Alex favorite", "isFavorite -> ${pokemon?.isFavorite}")
+                                    pokemon?.id?.toInt()?.let {
+                                        viewModel.updateFavoriteStatus(
+                                            it,
+                                            !pokemon.isFavorite
+                                        )
+                                    }
+                                }
+                                .constrainAs(icFavorite) {
+                                    end.linkTo(parent.end)
+                                    top.linkTo(parent.top)
+                                },
+                            imageVector = if (pokemon?.isFavorite == true) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                            contentDescription = null
+                        )
                         Text(
-                            text = pokemon?.name ?: "",
+                            modifier = Modifier.constrainAs(pokemonName) {
+                                top.linkTo(parent.top)
+                                bottom.linkTo(parent.bottom)
+                                start.linkTo(pokemonPhoto.end, margin = 16.dp)
+                            },
+                            text = "${pokemon?.id}.- ${pokemon?.name}",
                             fontSize = 24.sp
                         )
                     }

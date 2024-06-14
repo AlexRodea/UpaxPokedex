@@ -61,13 +61,14 @@ fun ProfileScreen(
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ProfileShape(
+    modifier: Modifier = Modifier,
     name: String,
     lastname: String,
     photo: String,
     screenWidth: Dp,
     hasPhoto: Boolean = false
 ) {
-    Box{
+    Box(modifier = modifier){
         ProfileInitials(screenWidth = screenWidth, name = name, lastname = lastname, hasPhoto = hasPhoto)
 
         if (!photo.isUrlInvalid()) {
