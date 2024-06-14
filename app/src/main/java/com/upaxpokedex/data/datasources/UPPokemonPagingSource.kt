@@ -25,7 +25,6 @@ class UPPokemonPagingSource(
             val response = apiService.getPokemonList(loadSize, offset)
             Log.e("Alex fav", "results = ${response.results}")
             val pokemonList = response.results
-            var pokemonListNew = mutableListOf<UPPokemonDomain>()
             pokemonList.forEach {
                 if (moduleDatabase.pokemonDao().findPokemonByName(it.name).isNullOrBlank()) {
                     val pokemonDetail = apiService.getPokemonDetail(it.name)
@@ -33,7 +32,8 @@ class UPPokemonPagingSource(
                     moduleDatabase.pokemonDao().insertPokemon(pokemonEntity)
                 }
             }
-            pokemonListNew = moduleDatabase.pokemonDao().getLastAddedPokemons(loadSize, offset).toDomain().toMutableList()
+            val pokemonListNew: MutableList<UPPokemonDomain> =
+                moduleDatabase.pokemonDao().getLastAddedPokemons(loadSize, offset).toDomain().toMutableList()
             Log.e("Alex", "pokemonListNew = $pokemonListNew")
             LoadResult.Page(
                 data = pokemonListNew,

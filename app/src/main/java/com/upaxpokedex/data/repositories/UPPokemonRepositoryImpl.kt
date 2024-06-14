@@ -7,7 +7,6 @@ import androidx.paging.PagingData
 import com.upaxpokedex.data.database.UPModuleDatabase
 import com.upaxpokedex.data.datasources.UPPokemonPagingSource
 import com.upaxpokedex.data.remote.UPApiService
-import com.upaxpokedex.data.remote.UPPokemonDetailResponse
 import com.upaxpokedex.domain.models.UPPokemonDomain
 import kotlinx.coroutines.flow.Flow
 
