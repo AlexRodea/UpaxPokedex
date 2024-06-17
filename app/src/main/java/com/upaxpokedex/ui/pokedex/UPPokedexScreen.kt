@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -43,7 +42,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.upaxpokedex.R
 import com.upaxpokedex.ui.custom.LoadingIndicator
-import com.upaxpokedex.ui.custom.shimmerEffect
+import com.upaxpokedex.utils.shimmerEffect
 
 @Composable
 fun PokedexScreen(viewModel: UPPokedexViewModel) {
@@ -154,8 +153,7 @@ fun PokedexScreen(viewModel: UPPokedexViewModel) {
                     .fillMaxSize()
                     .padding(horizontal = 16.dp)
             ) {
-                val list = listOf("", "", "", "")
-                items(list) {
+                items(4) {
                     Spacer(modifier = Modifier.padding(vertical = 16.dp))
                     Row(
                         verticalAlignment = Alignment.CenterVertically
